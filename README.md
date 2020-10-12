@@ -1,6 +1,7 @@
 # An out-of-tree dialect template for MLIR
 
 Original author: https://github.com/jmgorius/mlir-standalone-template
+LLVM Mirror: https://github.com/llvm/llvm-project/tree/master/mlir/examples/standalone
 
 This repository contains a template for an out-of-tree [MLIR](https://mlir.llvm.org/) dialect as well as a
 standalone `opt`-like tool to operate on that dialect.
@@ -14,7 +15,7 @@ cmake -G Ninja .. \
     -DLLVM_EXTERNAL_LIT=$BUILD_DIR/bin/llvm-lit \
     -DMLIR_DIR=$PREFIX/lib/cmake/mlir
 
-cmake --build . --target check-standalone-opt
+cmake --build . --target check-standalone
 ```
 
 **Note**: Make sure to pass `-DLLVM_INSTALL_UTILS=ON` when building LLVM with
