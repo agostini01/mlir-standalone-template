@@ -13,7 +13,12 @@ set(LIBS
 #        MLIRStandalone
         MLIRSupport
         )
-add_llvm_executable(standalone-compiler standalone-compiler.cpp)
+
+set(SOURCES
+  standalone-compiler.cpp
+  parser/AST.cpp
+)
+add_llvm_executable(standalone-compiler ${SOURCES})
 
 #llvm_update_compile_flags(standalone-compiler)
 target_link_libraries(standalone-compiler PRIVATE ${LIBS})

@@ -9,6 +9,7 @@ set(STANDALONE_TEST_DEPENDS
         FileCheck count not
         standalone-opt
         standalone-translate
+        standalone-compiler
         )
 
 add_lit_testsuite(check-standalone "Running the standalone-opt regression tests"
