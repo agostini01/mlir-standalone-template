@@ -6,8 +6,9 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file implements the AST for the Toy language. It processes the Token
-// provided by the Lexer and returns an AST.
+// This file implements the AST for the Standalone language. It is optimized for
+// simplicity, not efficiency. The AST forms a tree structure where each node
+// references its children using std::unique_ptr<>.
 //
 //===----------------------------------------------------------------------===//
 

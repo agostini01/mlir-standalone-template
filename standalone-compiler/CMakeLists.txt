@@ -7,12 +7,19 @@ include_directories(include/)
 #get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 #get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
 set(LIBS
+# Original standalone libs
 #        ${dialect_libs}
 #        ${conversion_libs}
 #        MLIROptLib
 #        MLIRStandalone
-        MLIRSupport
-        )
+# Original Toy1 libs
+#    MLIRAnalysis
+#    MLIRIR
+#    MLIRParser
+#    MLIRSideEffectInterfaces
+#    MLIRTransforms
+    MLIRSupport
+    )
 
 set(SOURCES
   standalone-compiler.cpp

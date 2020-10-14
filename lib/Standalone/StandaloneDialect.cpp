@@ -7,7 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "Standalone/StandaloneDialect.h"
-#include "Standalone/StandaloneOps.h"
+//#include "Standalone/StandaloneOps.h"
 
 using namespace mlir;
 using namespace mlir::standalone;
@@ -16,7 +16,10 @@ using namespace mlir::standalone;
 // Standalone dialect.
 //===----------------------------------------------------------------------===//
 
-void StandaloneDialect::initialize() {
+/// Dialect creation, the instance will be owned by the context. This is the
+/// point of registration of custom types and operations for the dialect.
+StandaloneDialect::StandaloneDialect(mlir::MLIRContext *ctx)
+    : mlir::Dialect(getDialectNamespace(), ctx, TypeID::get<StandaloneDialect>()) {
   addOperations<
 #define GET_OP_LIST
 #include "Standalone/StandaloneOps.cpp.inc"

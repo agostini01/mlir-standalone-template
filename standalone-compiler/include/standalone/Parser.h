@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file implements the parser for the Toy language. It processes the Token
-// provided by the Lexer and returns an AST.
+// This file implements the parser for the Standalone language. It processes the
+// Token provided by the Lexer and returns an AST.
 //
 //===----------------------------------------------------------------------===//
 
@@ -28,6 +28,11 @@
 
 namespace standalone {
 
+/// This is a simple recursive parser for the Standlaone language. It produces a
+/// well formed AST from a stream of Token supplied by the Lexer. No semantic
+/// checks or symbol resolution is performed. For example, variables are
+/// referenced by string and the code could reference an undeclared variable and
+/// the parsing succeeds.
 class Parser {
 public:
   /// Create a Parser for the supplied lexer.

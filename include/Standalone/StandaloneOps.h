@@ -9,11 +9,11 @@
 #ifndef STANDALONE_STANDALONEOPS_H
 #define STANDALONE_STANDALONEOPS_H
 
-#include "mlir/IR/Dialect.h"
-#include "mlir/IR/OpDefinition.h"
-#include "mlir/Interfaces/SideEffectInterfaces.h"
+// #include "mlir/IR/Dialect.h"
+// #include "mlir/IR/OpDefinition.h"
+// #include "mlir/Interfaces/SideEffectInterfaces.h"
 
-#define GET_OP_CLASSES
-#include "Standalone/StandaloneOps.h.inc"
+// #define GET_OP_CLASSES
+// #include "Standalone/StandaloneOps.h.inc"
 
 #endif // STANDALONE_STANDALONEOPS_H
