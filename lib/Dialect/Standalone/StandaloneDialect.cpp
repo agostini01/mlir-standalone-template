@@ -22,6 +22,6 @@ STDADialect::STDADialect(mlir::MLIRContext *ctx)
     : mlir::Dialect(getDialectNamespace(), ctx, TypeID::get<STDADialect>()) {
   addOperations<
 #define GET_OP_LIST
-#include "Standalone/Dialect/Standalone/STDAEnums.cpp.inc"
+#include "Standalone/Dialect/Standalone/STDA.cpp.inc"
       >();
 }

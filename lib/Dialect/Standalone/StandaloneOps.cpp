@@ -223,5 +223,6 @@ static mlir::LogicalResult verify(TransposeOp op) {
   return mlir::success();
 }
 
+// TODO: Fix CMakeFiles to generate ops in STDAEnums.cpp.inc
 #define GET_OP_CLASSES
-#include "Standalone/Dialect/Standalone/STDAEnums.cpp.inc"
+#include "Standalone/Dialect/Standalone/STDA.cpp.inc"

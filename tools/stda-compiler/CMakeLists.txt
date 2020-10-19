@@ -15,7 +15,7 @@ set(LIBS
 # Original Toy1 libs
 #    MLIRAnalysis
 #    MLIRIR
-#    MLIRParser
+    MLIRParser
 #    MLIRSideEffectInterfaces
 #    MLIRTransforms
     MLIRSupport
