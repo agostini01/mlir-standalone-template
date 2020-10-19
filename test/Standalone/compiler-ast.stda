@@ -1,0 +1,30 @@
+# RUN: stda-compiler %s -emit=ast 2>&1 | FileCheck %s
+
+def main() {
+# CHECK-LABEL: Proto 'main'
+  var a = [[1, 2, 3], [4, 5, 6]];
+  var b<2, 3> = [1, 2, 3, 4, 5, 6];
+
+# CHECK: Call 'transpose'
+# CHECK: Call 'transpose'
+  print(transpose(a) * transpose(b));
+}
+
+# User defined generic function that operates on unknown shaped arguments.
+def multiply_transpose(a, b) {
+  # CHECK-LABEL: Proto 'multiply_transpose'
+  # CHECK: Call 'transpose'
+  # CHECK: Call 'transpose'
+  return transpose(a) * transpose(b);
+}
+
+def secondfunction() {
+# CHECK-LABEL: Proto 'secondfunction'
+  var a<2, 3> = [[1, 2, 3], [4, 5, 6]];
+  var b<2, 3> = [1, 2, 3, 4, 5, 6];
+  var c = multiply_transpose(a, b);
+  var d = multiply_transpose(b, a);
+# CHECK: Call 'multiply_transpose'
+# CHECK: Call 'multiply_transpose'
+  print(d);
+}

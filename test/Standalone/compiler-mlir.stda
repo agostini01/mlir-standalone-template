@@ -1,0 +1,30 @@
+# RUN: stda-compiler %s -emit=mlir 2>&1 | FileCheck %s
+
+def main() {
+# CHECK-LABEL: func @main()
+  var a = [[1, 2, 3], [4, 5, 6]];
+  var b<2, 3> = [1, 2, 3, 4, 5, 6];
+
+# CHECK: stda.transpose
+# CHECK: stda.transpose
+  print(transpose(a) * transpose(b));
+}
+
+# User defined generic function that operates on unknown shaped arguments.
+def multiply_transpose(a, b) {
+  # CHECK-LABEL: func @multiply_transpose
+# CHECK: stda.transpose
+# CHECK: stda.transpose
+  return transpose(a) * transpose(b);
+}
+
+def secondfunction() {
+# CHECK-LABEL: func @secondfunction
+  var a<2, 3> = [[1, 2, 3], [4, 5, 6]];
+  var b<2, 3> = [1, 2, 3, 4, 5, 6];
+  var c = multiply_transpose(a, b);
+  var d = multiply_transpose(b, a);
+# CHECK: stda.generic_call @multiply_transpose
+# CHECK: stda.generic_call @multiply_transpose
+  print(d);
+}
