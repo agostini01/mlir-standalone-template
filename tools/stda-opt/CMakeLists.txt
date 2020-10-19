@@ -4,11 +4,11 @@ set(LIBS
         ${dialect_libs}
         ${conversion_libs}
         MLIROptLib
-        MLIRStandalone
+        MLIRSTDA
         )
-add_llvm_executable(standalone-opt standalone-opt.cpp)
+add_llvm_executable(stda-opt stda-opt.cpp)
 
-llvm_update_compile_flags(standalone-opt)
-target_link_libraries(standalone-opt PRIVATE ${LIBS})
+llvm_update_compile_flags(stda-opt)
+target_link_libraries(stda-opt PRIVATE ${LIBS})
 
-mlir_check_link_libraries(standalone-opt)
+mlir_check_link_libraries(stda-opt)

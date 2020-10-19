@@ -13,7 +13,7 @@ if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
 endif()
 
-project(standalone-dialect LANGUAGES CXX C)
+project(stda-dialect LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 14 CACHE STRING "C++ standard to conform to")
 
@@ -40,9 +40,7 @@ include_directories(${PROJECT_BINARY_DIR}/include)
 link_directories(${LLVM_BUILD_LIBRARY_DIR})
 add_definitions(${LLVM_DEFINITIONS})
 
-add_subdirectory(include)
+add_subdirectory(include/Standalone)
 add_subdirectory(lib)
 add_subdirectory(test)
-add_subdirectory(standalone-opt)
-add_subdirectory(standalone-translate)
-add_subdirectory(standalone-compiler)
+add_subdirectory(tools)

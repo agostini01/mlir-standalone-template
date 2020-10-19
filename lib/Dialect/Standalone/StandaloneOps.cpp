@@ -1,19 +1,19 @@
-//===- StandaloneOps.cpp - Standalone dialect ops ---------------*- C++ -*-===//
+//===- STDAOps.cpp - STDA dialect ops ---------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
 //===----------------------------------------------------------------------===//
-#include "Standalone/StandaloneOps.h"
-#include "Standalone/StandaloneDialect.h"
+#include "Standalone/Dialect/Standalone/Ops.h"
+#include "Standalone/Dialect/Standalone/Dialect.h"
 
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/OpImplementation.h"
 #include "mlir/IR/StandardTypes.h"
 
 using namespace mlir;
-using namespace mlir::standalone;
+using namespace mlir::stda;
 
 /// A generalized parser for binary operations. This parses the different forms
 /// of 'printBinaryOp' below.
@@ -97,7 +97,7 @@ static mlir::ParseResult parseConstantOp(mlir::OpAsmParser &parser,
 /// The 'OpAsmPrinter' class is a stream that allows for formatting
 /// strings, attributes, operands, types, etc.
 static void print(mlir::OpAsmPrinter &printer, ConstantOp op) {
-  printer << "standalone.constant ";
+  printer << "stda.constant ";
   printer.printOptionalAttrDict(op.getAttrs(), /*elidedAttrs=*/{"value"});
   printer << op.value();
 }
@@ -224,4 +224,4 @@ static mlir::LogicalResult verify(TransposeOp op) {
 }
 
 #define GET_OP_CLASSES
-#include "Standalone/StandaloneOps.cpp.inc"
+#include "Standalone/Dialect/Standalone/STDAEnums.cpp.inc"

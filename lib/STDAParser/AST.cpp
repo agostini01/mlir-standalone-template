@@ -1,4 +1,4 @@
-//===- AST.cpp - Helper for printing out the Standalone AST ---------------===//
+//===- AST.cpp - Helper for printing out the STDA AST ---------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -10,13 +10,13 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "standalone/AST.h"
+#include "Standalone/Parser/AST.h"
 
 #include "llvm/ADT/Twine.h"
 #include "llvm/ADT/TypeSwitch.h"
 #include "llvm/Support/raw_ostream.h"
 
-using namespace standalone;
+using namespace stda;
 
 namespace {
 
@@ -226,9 +226,9 @@ void ASTDumper::dump(ModuleAST *node) {
     dump(&f);
 }
 
-namespace standalone {
+namespace stda {
 
 // Public API
 void dump(ModuleAST &module) { ASTDumper().dump(&module); }
 
-} // namespace standalone
+} // namespace stda

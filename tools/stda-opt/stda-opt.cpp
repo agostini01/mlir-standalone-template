@@ -1,4 +1,4 @@
-//===- standalone-opt.cpp ---------------------------------------*- C++ -*-===//
+//===- stda-opt.cpp ---------------------------------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -19,15 +19,15 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/ToolOutputFile.h"
 
-#include "Standalone/StandaloneDialect.h"
+#include "Standalone/Dialect/Standalone/Dialect.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllDialects();
   mlir::registerAllPasses();
-  // TODO: Register standalone passes here.
+  // TODO: Register stda passes here.
 
   mlir::DialectRegistry registry;
-  registry.insert<mlir::standalone::StandaloneDialect>();
+  registry.insert<mlir::stda::STDADialect>();
   registry.insert<mlir::StandardOpsDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively
   // include what you need like above. You only need to register dialects that
@@ -35,5 +35,5 @@ int main(int argc, char **argv) {
   // registerAllDialects(registry);
 
   return failed(
-      mlir::MlirOptMain(argc, argv, "Standalone optimizer driver\n", registry));
+      mlir::MlirOptMain(argc, argv, "STDA optimizer driver\n", registry));
 }

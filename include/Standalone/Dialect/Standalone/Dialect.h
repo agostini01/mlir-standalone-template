@@ -1,4 +1,4 @@
-//===- StandaloneDialect.h - Standalone dialect -----------------*- C++ -*-===//
+//===- STDADialect.h - STDA dialect -----------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -14,27 +14,27 @@
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
 namespace mlir {
-namespace standalone {
+namespace stda {
 
-/// This is the definition of the Standalone dialect. A dialect inherits from
+/// This is the definition of the STDA dialect. A dialect inherits from
 /// mlir::Dialect and registers custom attributes, operations, and types (in its
 /// constructor). It can also override some general behavior exposed via virtual
 /// methods.
-class StandaloneDialect : public mlir::Dialect {
+class STDADialect : public mlir::Dialect {
 public:
-  explicit StandaloneDialect(mlir::MLIRContext *ctx);
+  explicit STDADialect(mlir::MLIRContext *ctx);
 
   /// Provide a utility accessor to the dialect namespace. This is used by
   /// several utilities for casting between dialects.
-  static llvm::StringRef getDialectNamespace() { return "standalone"; }
+  static llvm::StringRef getDialectNamespace() { return "stda"; }
 };
 
-} // end namespace standalone
+} // end namespace stda
 } // end namespace mlir
 
 /// Include the auto-generated header file containing the declarations of the
-/// standalone operations.
+/// stda operations.
 #define GET_OP_CLASSES
-#include "Standalone/StandaloneOps.h.inc"
+#include "Standalone/Dialect/Standalone/STDA.h.inc"
 
 #endif // STANDALONE_STANDALONEDIALECT_H

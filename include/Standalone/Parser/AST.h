@@ -1,4 +1,4 @@
-//===- AST.h - Standalone Language AST ------------------------------===//
+//===- AST.h - STDA Language AST ------------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file implements the AST for the Standalone language. It is optimized for
+// This file implements the AST for the STDA language. It is optimized for
 // simplicity, not efficiency. The AST forms a tree structure where each node
 // references its children using std::unique_ptr<>.
 //
@@ -15,14 +15,14 @@
 #ifndef STANDALONE_AST_H
 #define STANDALONE_AST_H
 
-#include "standalone/Lexer.h"
+#include "Lexer.h"
 
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/Casting.h"
 #include <vector>
 
-namespace standalone {
+namespace stda {
 
 /// A variable type with shape information.
 struct VarType {
@@ -236,6 +236,6 @@ public:
 };
 
 void dump(ModuleAST &);
-} // namespace standalone
+} // namespace stda
 
 #endif // STANDALONE_PARSER_H

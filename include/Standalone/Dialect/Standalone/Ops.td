@@ -1,4 +1,4 @@
-//===- StandaloneOps.td - Standalone dialect ops -----------*- tablegen -*-===//
+//===- STDAOps.td - STDA dialect ops -----------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -9,14 +9,14 @@
 #ifndef STANDALONE_OPS
 #define STANDALONE_OPS
 
-include "StandaloneDialect.td"
+include "STDA.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
 
-def Standalone_FooOp : Standalone_Op<"foo", [NoSideEffect,
+def STDA_FooOp : STDA_Op<"foo", [NoSideEffect,
                                              SameOperandsAndResultType]> {
     let summary = "Illustrates how to define an operation.";
     let description = [{
-        The `standalone.foo` operation illustrates how to define a new
+        The `stda.foo` operation illustrates how to define a new
         operation in a dialect. It uses an operation trait to declare that it
         has no side effects.
 
@@ -27,7 +27,7 @@ def Standalone_FooOp : Standalone_Op<"foo", [NoSideEffect,
         ```mlir
         %0 = constant 2 : i32
         // Apply the foo operation to %0
-        %1 = standalone.foo %0 : i32
+        %1 = stda.foo %0 : i32
         ```
     }];
 
@@ -40,14 +40,14 @@ def Standalone_FooOp : Standalone_Op<"foo", [NoSideEffect,
 }
 
 //===----------------------------------------------------------------------===//
-// Standalone Operations
+// STDA Operations
 //===----------------------------------------------------------------------===//
 
-// We define a standalone operation by inheriting from our base 'Standalone_Op' class above.
+// We define a stda operation by inheriting from our base 'STDA_Op' class above.
 // Here we provide the mnemonic and a list of traits for the operation. The
 // constant operation is marked as 'NoSideEffect' as it is a pure operation
 // and may be removed if dead.
-def ConstantOp : Standalone_Op<"constant", [NoSideEffect]> {
+def ConstantOp : STDA_Op<"constant", [NoSideEffect]> {
   // Provide a summary and description for this operation. This can be used to
   // auto-generate documentation of the operations within our dialect.
   let summary = "constant";
@@ -56,7 +56,7 @@ def ConstantOp : Standalone_Op<"constant", [NoSideEffect]> {
     to the operation as an attribute. For example:
 
     ```mlir
-      %0 = standalone.constant dense<[[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]>
+      %0 = stda.constant dense<[[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]>
                         : tensor<2x3xf64>
     ```
   }];
@@ -88,7 +88,7 @@ def ConstantOp : Standalone_Op<"constant", [NoSideEffect]> {
   let verifier = [{ return ::verify(*this); }];
 }
 
-def AddOp : Standalone_Op<"add"> {
+def AddOp : STDA_Op<"add"> {
   let summary = "element-wise addition operation";
   let description = [{
     The "add" operation performs element-wise addition between two tensors.
@@ -108,7 +108,7 @@ def AddOp : Standalone_Op<"add"> {
   ];
 }
 
-def GenericCallOp : Standalone_Op<"generic_call"> {
+def GenericCallOp : STDA_Op<"generic_call"> {
   let summary = "generic call operation";
   let description = [{
     Generic calls represent calls to a user defined function that needs to
@@ -117,7 +117,7 @@ def GenericCallOp : Standalone_Op<"generic_call"> {
     arguments expected by the callee. For example:
 
     ```mlir
-     %4 = standalone.generic_call @my_func(%1, %3)
+     %4 = stda.generic_call @my_func(%1, %3)
            : (tensor<2x3xf64>, tensor<2x3xf64>) -> tensor<*xf64>
     ```
 
@@ -143,7 +143,7 @@ def GenericCallOp : Standalone_Op<"generic_call"> {
   ];
 }
 
-def MulOp : Standalone_Op<"mul"> {
+def MulOp : STDA_Op<"mul"> {
   let summary = "element-wise multiplication operation";
   let description = [{
     The "mul" operation performs element-wise multiplication between two
@@ -163,7 +163,7 @@ def MulOp : Standalone_Op<"mul"> {
   ];
 }
 
-def PrintOp : Standalone_Op<"print"> {
+def PrintOp : STDA_Op<"print"> {
   let summary = "print operation";
   let description = [{
     The "print" builtin operation prints a given input tensor, and produces
@@ -176,14 +176,14 @@ def PrintOp : Standalone_Op<"print"> {
   let assemblyFormat = "$input attr-dict `:` type($input)";
 }
 
-def ReshapeOp : Standalone_Op<"reshape"> {
+def ReshapeOp : STDA_Op<"reshape"> {
   let summary = "tensor reshape operation";
   let description = [{
     Reshape operation is transforming its input tensor into a new tensor with
     the same number of elements but different shapes. For example:
 
     ```mlir
-       %0 = standalone.reshape (%arg1 : tensor<10xf64>) to tensor<5x2xf64>
+       %0 = stda.reshape (%arg1 : tensor<10xf64>) to tensor<5x2xf64>
     ```
   }];
 
@@ -197,7 +197,7 @@ def ReshapeOp : Standalone_Op<"reshape"> {
   }];
 }
 
-def ReturnOp : Standalone_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
+def ReturnOp : STDA_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
                                  Terminator]> {
   let summary = "return operation";
   let description = [{
@@ -209,7 +209,7 @@ def ReturnOp : Standalone_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
     ```mlir
       func @foo() -> tensor<2xf64> {
         ...
-        standalone.return %0 : tensor<2xf64>
+        stda.return %0 : tensor<2xf64>
       }
     ```
   }];
@@ -235,7 +235,7 @@ def ReturnOp : Standalone_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
   let verifier = [{ return ::verify(*this); }];
 }
 
-def TransposeOp : Standalone_Op<"transpose"> {
+def TransposeOp : STDA_Op<"transpose"> {
   let summary = "transpose operation";
 
   let arguments = (ins F64Tensor:$input);

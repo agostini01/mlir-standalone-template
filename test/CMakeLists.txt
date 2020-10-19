@@ -7,15 +7,15 @@ configure_lit_site_cfg(
 
 set(STANDALONE_TEST_DEPENDS
         FileCheck count not
-        standalone-opt
-        standalone-translate
-        standalone-compiler
+        stda-opt
+        stda-translate
+        stda-compiler
         )
 
-add_lit_testsuite(check-standalone "Running the standalone-opt regression tests"
+add_lit_testsuite(check-stda "Running the stda-opt regression tests"
         ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS ${STANDALONE_TEST_DEPENDS}
         )
-set_target_properties(check-standalone PROPERTIES FOLDER "Tests")
+set_target_properties(check-stda PROPERTIES FOLDER "Tests")
 
 add_lit_testsuites(STANDALONE_OPT ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS ${STANDALONE_TEST_DEPENDS})

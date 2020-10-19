@@ -1,4 +1,4 @@
-//===- standalone-compiler.cpp - The Standalone Compiler ------------------===//
+//===- stda-compiler.cpp - The STDA Compiler ------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,11 +6,11 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file implements the entry point for the Standalone compiler.
+// This file implements the entry point for the STDA compiler.
 //
 //===----------------------------------------------------------------------===//
 
-#include "standalone/Parser.h"
+#include "Standalone/Parser/Parser.h"
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/CommandLine.h"
@@ -18,11 +18,11 @@
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Support/raw_ostream.h"
 
-using namespace standalone;
+using namespace stda;
 namespace cl = llvm::cl;
 
 static cl::opt<std::string> inputFilename(cl::Positional,
-                                          cl::desc("<input standalone file>"),
+                                          cl::desc("<input stda file>"),
                                           cl::init("-"),
                                           cl::value_desc("filename"));
 namespace {
@@ -33,9 +33,9 @@ static cl::opt<enum Action>
     emitAction("emit", cl::desc("Select the kind of output desired"),
                cl::values(clEnumValN(DumpAST, "ast", "output the AST dump")));
 
-/// Returns a Standalone AST resulting from parsing the file or a nullptr on
+/// Returns a STDA AST resulting from parsing the file or a nullptr on
 /// error.
-std::unique_ptr<standalone::ModuleAST>
+std::unique_ptr<stda::ModuleAST>
 parseInputFile(llvm::StringRef filename) {
   llvm::ErrorOr<std::unique_ptr<llvm::MemoryBuffer>> fileOrErr =
       llvm::MemoryBuffer::getFileOrSTDIN(filename);
@@ -50,7 +50,7 @@ parseInputFile(llvm::StringRef filename) {
 }
 
 int main(int argc, char **argv) {
-  cl::ParseCommandLineOptions(argc, argv, "standalone compiler\n");
+  cl::ParseCommandLineOptions(argc, argv, "stda compiler\n");
 
   auto moduleAST = parseInputFile(inputFilename);
   if (!moduleAST)

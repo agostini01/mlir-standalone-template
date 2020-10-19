@@ -1,4 +1,4 @@
-//===- Lexer.h - Standalone Language Lexer ------------------------------===//
+//===- Lexer.h - STDA Language Lexer ------------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file implements a simple Lexer for the Standalone language.
+// This file implements a simple Lexer for the STDA language.
 //
 //===----------------------------------------------------------------------===//
 
@@ -18,7 +18,7 @@
 #include <memory>
 #include <string>
 
-namespace standalone {
+namespace stda {
 
 /// Structure definition a location in a file.
 struct Location {
@@ -228,6 +228,6 @@ private:
   const char *current, *end;
 };
 
-} // namespace standalone
+} // namespace stda
 
 #endif // STANDALONE_LEXER_H

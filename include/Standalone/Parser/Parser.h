@@ -1,4 +1,4 @@
-//===- Parser.h - Standalone Language Parser ------------------------------===//
+//===- Parser.h - STDA Language Parser ------------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file implements the parser for the Standalone language. It processes the
+// This file implements the parser for the STDA language. It processes the
 // Token provided by the Lexer and returns an AST.
 //
 //===----------------------------------------------------------------------===//
@@ -14,8 +14,8 @@
 #ifndef STANDALONE_PARSER_H
 #define STANDALONE_PARSER_H
 
-#include "standalone/AST.h"
-#include "standalone/Lexer.h"
+#include "AST.h"
+#include "Lexer.h"
 
 #include "llvm/ADT/Optional.h"
 #include "llvm/ADT/STLExtras.h"
@@ -26,7 +26,7 @@
 #include <utility>
 #include <vector>
 
-namespace standalone {
+namespace stda {
 
 /// This is a simple recursive parser for the Standlaone language. It produces a
 /// well formed AST from a stream of Token supplied by the Lexer. No semantic
@@ -484,6 +484,6 @@ private:
   }
 };
 
-} // namespace standalone
+} // namespace stda
 
 #endif // STANDALONE_PARSER_H

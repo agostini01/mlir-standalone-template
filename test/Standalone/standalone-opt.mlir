@@ -1,3 +1,3 @@
-// RUN: standalone-opt --show-dialects | FileCheck %s
+// RUN: stda-opt --show-dialects | FileCheck %s
 // CHECK: Available Dialects:
-// CHECK: standalone
+// CHECK: stda

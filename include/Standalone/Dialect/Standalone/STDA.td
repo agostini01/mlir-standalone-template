@@ -1,4 +1,4 @@
-//===- StandaloneDialect.td - Standalone dialect -----------*- tablegen -*-===//
+//===- STDADialect.td - STDA dialect -----------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -12,25 +12,27 @@
 include "mlir/IR/OpBase.td"
 
 //===----------------------------------------------------------------------===//
-// Standalone dialect definition.
+// STDA dialect definition.
 //===----------------------------------------------------------------------===//
 
-def Standalone_Dialect : Dialect {
-    let name = "standalone";
-    let summary = "A standalone out-of-tree MLIR dialect.";
+def STDA_Dialect : Dialect {
+    let name = "stda";
+    let summary = "A stda out-of-tree MLIR dialect.";
     let description = [{
         This dialect is an example of an out-of-tree MLIR dialect designed to
         illustrate the basic setup required to develop MLIR-based tools without
         working inside of the LLVM source tree.
     }];
-    let cppNamespace = "::mlir::standalone";
+    let cppNamespace = "::mlir::stda";
 }
 
 //===----------------------------------------------------------------------===//
-// Base standalone operation definition.
+// Base stda operation definition.
 //===----------------------------------------------------------------------===//
 
-class Standalone_Op<string mnemonic, list<OpTrait> traits = []> :
-        Op<Standalone_Dialect, mnemonic, traits>;
+class STDA_Op<string mnemonic, list<OpTrait> traits = []> :
+        Op<STDA_Dialect, mnemonic, traits>;
+
+include "Ops.td"
 
 #endif // STANDALONE_DIALECT
