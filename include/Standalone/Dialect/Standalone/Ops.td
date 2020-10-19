@@ -88,7 +88,7 @@ def ConstantOp : STDA_Op<"constant", [NoSideEffect]> {
   let verifier = [{ return ::verify(*this); }];
 }
 
-def AddOp : STDA_Op<"add"> {
+def AddOp : STDA_Op<"add", [NoSideEffect]> {
   let summary = "element-wise addition operation";
   let description = [{
     The "add" operation performs element-wise addition between two tensors.
@@ -143,7 +143,7 @@ def GenericCallOp : STDA_Op<"generic_call"> {
   ];
 }
 
-def MulOp : STDA_Op<"mul"> {
+def MulOp : STDA_Op<"mul", [NoSideEffect]> {
   let summary = "element-wise multiplication operation";
   let description = [{
     The "mul" operation performs element-wise multiplication between two
@@ -176,7 +176,7 @@ def PrintOp : STDA_Op<"print"> {
   let assemblyFormat = "$input attr-dict `:` type($input)";
 }
 
-def ReshapeOp : STDA_Op<"reshape"> {
+def ReshapeOp : STDA_Op<"reshape", [NoSideEffect]> {
   let summary = "tensor reshape operation";
   let description = [{
     Reshape operation is transforming its input tensor into a new tensor with
@@ -195,6 +195,8 @@ def ReshapeOp : STDA_Op<"reshape"> {
   let assemblyFormat = [{
     `(` $input `:` type($input) `)` attr-dict `to` type(results)
   }];
+
+  let hasCanonicalizer = 1;
 }
 
 def ReturnOp : STDA_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
@@ -235,7 +237,7 @@ def ReturnOp : STDA_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
   let verifier = [{ return ::verify(*this); }];
 }
 
-def TransposeOp : STDA_Op<"transpose"> {
+def TransposeOp : STDA_Op<"transpose", [NoSideEffect]> {
   let summary = "transpose operation";
 
   let arguments = (ins F64Tensor:$input);
@@ -244,6 +246,8 @@ def TransposeOp : STDA_Op<"transpose"> {
   let assemblyFormat = [{
     `(` $input `:` type($input) `)` attr-dict `to` type(results)
   }];
+
+  let hasCanonicalizer = 1;
 
   // Allow building a TransposeOp with from the input operand.
   let builders = [

@@ -9,6 +9,7 @@ add_mlir_dialect_library(MLIRSTDA
 
         DEPENDS
         MLIRSTDAEnumsIncGen
+        MLIRSTDAPassesIncGen
 
 	LINK_LIBS PUBLIC
 	MLIRIR

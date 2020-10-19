@@ -22,9 +22,9 @@
 #include "Standalone/Dialect/Standalone/Dialect.h"
 
 int main(int argc, char **argv) {
-  mlir::registerAllDialects();
-  mlir::registerAllPasses();
-  // TODO: Register stda passes here.
+  // mlir::registerAllDialects();
+  // mlir::registerAllPasses();
+  mlir::registerCanonicalizerPass();
 
   mlir::DialectRegistry registry;
   registry.insert<mlir::stda::STDADialect>();
