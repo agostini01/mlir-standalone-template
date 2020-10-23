@@ -10,6 +10,7 @@ add_mlir_dialect_library(MLIRSTDA
         DEPENDS
         MLIRSTDAEnumsIncGen
         MLIRSTDAPassesIncGen
+        MLIRSTDAShapeInferenceInterfaceIncGen
 
 	LINK_LIBS PUBLIC
 	MLIRIR

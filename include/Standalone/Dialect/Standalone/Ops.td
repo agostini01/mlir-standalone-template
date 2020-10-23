@@ -10,7 +10,10 @@
 #define STANDALONE_OPS
 
 include "STDA.td"
+include "mlir/Interfaces/CallInterfaces.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
+
+include "ShapeInferenceInterface.td"
 
 def STDA_FooOp : STDA_Op<"foo", [NoSideEffect,
                                              SameOperandsAndResultType]> {
@@ -88,7 +91,8 @@ def ConstantOp : STDA_Op<"constant", [NoSideEffect]> {
   let verifier = [{ return ::verify(*this); }];
 }
 
-def AddOp : STDA_Op<"add", [NoSideEffect]> {
+def AddOp : STDA_Op<"add", 
+  [NoSideEffect, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "element-wise addition operation";
   let description = [{
     The "add" operation performs element-wise addition between two tensors.
@@ -108,7 +112,28 @@ def AddOp : STDA_Op<"add", [NoSideEffect]> {
   ];
 }
 
-def GenericCallOp : STDA_Op<"generic_call"> {
+def CastOp : STDA_Op<"cast",
+  [DeclareOpInterfaceMethods<ShapeInferenceOpInterface>, NoSideEffect, 
+    SameOperandsAndResultShape]> {
+  let summary = "shape cast operation";
+  let description = [{
+    The "cast" operation converts a tensor from one type to an equivalent type
+    without changing any data elements. The source and destination types
+    must both be tensor types with the same element type. If both are ranked
+    then the rank should be the same and static dimensions should match. The
+    operation is invalid if converting to a mismatching constant dimension.
+  }];
+
+  let arguments = (ins F64Tensor:$input);
+  let results = (outs F64Tensor:$output);
+
+  let assemblyFormat = "$input attr-dict `:` type($input) `to` type($output)";
+
+  // Set the folder bit so we can fold redundant cast ops.
+  let hasFolder =1;
+  }
+
+def GenericCallOp : STDA_Op<"generic_call", [DeclareOpInterfaceMethods<CallOpInterface>]> {
   let summary = "generic call operation";
   let description = [{
     Generic calls represent calls to a user defined function that needs to
@@ -143,7 +168,8 @@ def GenericCallOp : STDA_Op<"generic_call"> {
   ];
 }
 
-def MulOp : STDA_Op<"mul", [NoSideEffect]> {
+def MulOp : STDA_Op<"mul", 
+  [NoSideEffect, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "element-wise multiplication operation";
   let description = [{
     The "mul" operation performs element-wise multiplication between two
@@ -237,7 +263,8 @@ def ReturnOp : STDA_Op<"return", [NoSideEffect, HasParent<"FuncOp">,
   let verifier = [{ return ::verify(*this); }];
 }
 
-def TransposeOp : STDA_Op<"transpose", [NoSideEffect]> {
+def TransposeOp : STDA_Op<"transpose", 
+  [NoSideEffect, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "transpose operation";
 
   let arguments = (ins F64Tensor:$input);

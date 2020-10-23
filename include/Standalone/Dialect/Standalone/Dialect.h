@@ -11,7 +11,10 @@
 
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/Function.h"
+#include "mlir/IR/StandardTypes.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
+
+#include "Standalone/Dialect/Standalone/ShapeInferenceInterface.h"
 
 namespace mlir {
 namespace stda {

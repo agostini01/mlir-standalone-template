@@ -23,6 +23,7 @@ namespace mlir {
 namespace stda {
 
 std::unique_ptr<mlir::Pass> optimizeSTDAPass();
+std::unique_ptr<mlir::Pass> createShapeInferencePass();
 
 } // namespace stda
 } // namespace mlir
