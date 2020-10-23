@@ -13,6 +13,7 @@
 #ifndef STANDALONE_DIALECT_STDA_PASSES_H
 #define STANDALONE_DIALECT_STDA_PASSES_H
 
+#include "mlir/Pass/PassRegistry.h"
 #include <memory>
 
 namespace mlir {
@@ -22,8 +23,14 @@ class Pass;
 namespace mlir {
 namespace stda {
 
-std::unique_ptr<mlir::Pass> optimizeSTDAPass();
 std::unique_ptr<mlir::Pass> createShapeInferencePass();
+
+inline void registerShapeInferencePass() {
+  ::mlir::registerPass("shape-inference", "Shape Inference",
+                       []() -> std::unique_ptr<::mlir::Pass> {
+                         return mlir::stda::createShapeInferencePass();
+                       });
+}
 
 } // namespace stda
 } // namespace mlir

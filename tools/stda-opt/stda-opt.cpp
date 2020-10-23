@@ -20,14 +20,21 @@
 #include "llvm/Support/ToolOutputFile.h"
 
 #include "Standalone/Dialect/Standalone/Dialect.h"
+#include "Standalone/Dialect/Standalone/Passes.h"
 
 int main(int argc, char **argv) {
   // mlir::registerAllDialects();
   // mlir::registerAllPasses();
+
+  // The standard canonicalizer is able to fold a set of stda ops that implement
+  // the correct traits and interfaces. i.e. ops that have the no side effect
+  // traits and are described under DDR
   mlir::registerCanonicalizerPass();
 
   mlir::DialectRegistry registry;
   registry.insert<mlir::stda::STDADialect>();
+  mlir::stda::registerShapeInferencePass();
+
   registry.insert<mlir::StandardOpsDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively
   // include what you need like above. You only need to register dialects that
