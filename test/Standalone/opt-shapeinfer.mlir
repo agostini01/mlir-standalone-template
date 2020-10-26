@@ -17,4 +17,3 @@ func @main() {
   //CHECK: stda.print %{{.*}} : tensor<3x2xf64>
   //CHECK: stda.return
 }
-  
