@@ -12,8 +12,8 @@
 //===----------------------------------------------------------------------===//
 
 #include "Standalone/Dialect/Standalone/MLIRGen.h"
-#include "Standalone/Parser/AST.h"
 #include "Standalone/Dialect/Standalone/Dialect.h"
+#include "Standalone/Parser/AST.h"
 
 #include "mlir/IR/Attributes.h"
 #include "mlir/IR/Builders.h"
@@ -169,6 +169,10 @@ private:
       function.setType(builder.getFunctionType(function.getType().getInputs(),
                                                getType(VarType{})));
     }
+
+    // If this function isn't main, then set the visibility to private.
+    if (funcAST.getProto()->getName() != "main")
+      function.setVisibility(mlir::FuncOp::Visibility::Private);
 
     return function;
   }

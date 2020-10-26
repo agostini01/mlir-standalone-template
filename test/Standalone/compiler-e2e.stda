@@ -1,0 +1,23 @@
+# RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize | FileCheck %s
+# User defined generic function that operates on unknown shaped arguments
+def multiply_transpose(a, b) {
+# CHECK-NOT: func @multiply_transpose
+  return transpose(a) * transpose(b);
+}
+
+def main() {
+# CHECK-LABEL: func @main()
+  var a<2, 3> = [[1, 2, 3], [4, 5, 6]];
+  var b<2, 3> = [1, 2, 3, 4, 5, 6];
+  var c = multiply_transpose(a, b);
+  var d = multiply_transpose(b, a);
+  print(d);
+# CHECK-NEXT: %{{.*}} = stda.constant
+# CHECK-NEXT: %{{.*}} = stda.constant
+# CHECK-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+# CHECK-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+# CHECK-NEXT: %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
+# CHECK-NEXT: stda.print %{{.*}} : tensor<3x2xf64>
+# CHECK-NEXT: stda.return
+}
+

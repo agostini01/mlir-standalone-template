@@ -11,8 +11,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef MLIR_TUTORIAL_STANDALONE_SHAPEINFERENCEINTERFACE_H_
-#define MLIR_TUTORIAL_STANDALONE_SHAPEINFERENCEINTERFACE_H_
+#ifndef MLIR_STANDALONE_SHAPEINFERENCEINTERFACE_H_
+#define MLIR_STANDALONE_SHAPEINFERENCEINTERFACE_H_
 
 #include "mlir/IR/OpDefinition.h"
 

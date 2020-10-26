@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
   // mlir::registerAllDialects();
   // mlir::registerAllPasses();
 
+  mlir::registerInlinerPass();
   // The standard canonicalizer is able to fold a set of stda ops that implement
   // the correct traits and interfaces. i.e. ops that have the no side effect
   // traits and are described under DDR
