@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
   // the correct traits and interfaces. i.e. ops that have the no side effect
   // traits and are described under DDR
   mlir::registerCanonicalizerPass();
+  mlir::registerCSEPass();
 
   mlir::DialectRegistry registry;
   registry.insert<mlir::stda::STDADialect>();

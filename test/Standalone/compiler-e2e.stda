@@ -1,4 +1,5 @@
-# RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize | FileCheck %s
+# RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize | FileCheck %s --check-prefix=PARTIAL
+# RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize --cse | FileCheck %s --check-prefix=FULL
 # User defined generic function that operates on unknown shaped arguments
 def multiply_transpose(a, b) {
 # CHECK-NOT: func @multiply_transpose
@@ -6,27 +7,24 @@ def multiply_transpose(a, b) {
 }
 
 def main() {
-# CHECK-LABEL: func @main()
+# PARTIAL-LABEL: func @main()
+# FULL-LABEL: func @main()
   var a<2, 3> = [[1, 2, 3], [4, 5, 6]];
   var b<2, 3> = [1, 2, 3, 4, 5, 6];
   var c = multiply_transpose(a, b);
   var d = multiply_transpose(b, a);
   print(d);
-# CHECK-NEXT: %{{.*}} = stda.constant
-# CHECK-NEXT: %{{.*}} = stda.constant
-# CHECK-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
-# CHECK-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
-# CHECK-NEXT: %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
-# CHECK-NEXT: stda.print %{{.*}} : tensor<3x2xf64>
-# CHECK-NEXT: stda.return
-}
+# PARTIAL-NEXT: %{{.*}} = stda.constant
+# PARTIAL-NEXT: %{{.*}} = stda.constant
+# PARTIAL-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+# PARTIAL-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+# PARTIAL-NEXT: %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
+# PARTIAL-NEXT: stda.print %{{.*}} : tensor<3x2xf64>
+# PARTIAL-NEXT: stda.return
 
-#module {
-#  func @main() {
-#    %0 = toy.constant dense<[[1.000000e+00, 2.000000e+00, 3.000000e+00], [4.000000e+00, 5.000000e+00, 6.000000e+00]]> : tensor<2x3xf64>
-#    %1 = toy.transpose(%0 : tensor<2x3xf64>) to tensor<3x2xf64>
-#    %2 = toy.mul %1, %1 : tensor<3x2xf64>
-#    toy.print %2 : tensor<3x2xf64>
-#    toy.return
-#  }
-#}
+# FULL-NEXT: %{{.*}} = stda.constant
+# FULL-NEXT: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+# FULL-NEXT: %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
+# FULL-NEXT: stda.print %{{.*}} : tensor<3x2xf64>
+# FULL-NEXT: stda.return
+}
