@@ -33,9 +33,17 @@ int main(int argc, char **argv) {
   mlir::registerCanonicalizerPass();
   mlir::registerCSEPass();
 
+  //===--------------------------------------------------------------------===//
+  // Register STDA dialect and passes
+  //===--------------------------------------------------------------------===//
   mlir::DialectRegistry registry;
   registry.insert<mlir::stda::STDADialect>();
+
+  // Optimization passes
   mlir::stda::registerShapeInferencePass();
+
+  // Conversion passes
+  mlir::stda::registerSTDAToAffinePass();
 
   registry.insert<mlir::StandardOpsDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively

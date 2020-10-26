@@ -23,12 +23,32 @@ class Pass;
 namespace mlir {
 namespace stda {
 
+//===----------------------------------------------------------------------===//
+// Optimizations
+//===----------------------------------------------------------------------===//
 std::unique_ptr<mlir::Pass> createShapeInferencePass();
+
+//===----------------------------------------------------------------------===//
+// Lowerings
+//===----------------------------------------------------------------------===//
+std::unique_ptr<mlir::Pass> createSTDAToAffinePass();
+
+//===----------------------------------------------------------------------===//
+// Register passes
+//===----------------------------------------------------------------------===//
 
 inline void registerShapeInferencePass() {
   ::mlir::registerPass("shape-inference", "Shape Inference",
                        []() -> std::unique_ptr<::mlir::Pass> {
                          return mlir::stda::createShapeInferencePass();
+                       });
+}
+
+inline void registerSTDAToAffinePass() {
+  ::mlir::registerPass("lower-stda-to-affine",
+                       "Implements stda dialect lowering to affine dialect",
+                       []() -> std::unique_ptr<::mlir::Pass> {
+                         return mlir::stda::createSTDAToAffinePass();
                        });
 }
 
