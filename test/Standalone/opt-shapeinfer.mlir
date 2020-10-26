@@ -1,4 +1,4 @@
-// RUN: stda-opt --allow-unregistered-dialect --canonicalize --shape-inference %s | FileCheck %s
+// RUN: stda-opt --allow-unregistered-dialect --shape-inference %s | FileCheck %s
 func @main() {
   //CHECK: func @main()
   %0 = "stda.constant"() {value = dense<[[1.000000e+00, 2.000000e+00, 3.000000e+00], [4.000000e+00, 5.000000e+00, 6.000000e+00]]> : tensor<2x3xf64>} : () -> tensor<2x3xf64>
@@ -11,10 +11,10 @@ func @main() {
   stda.print %6 : tensor<*xf64>
   stda.return
   //CHECK: %{{.*}} = stda.constant
-  //CHECK  %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
-  //CHECK  %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
-  //CHECK  %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
-  //CHECK  stda.print %4 : tensor<3x2xf64>
+  //CHECK: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+  //CHECK: %{{.*}} = stda.transpose(%{{.*}} : tensor<2x3xf64>) to tensor<3x2xf64>
+  //CHECK: %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
+  //CHECK: stda.print %{{.*}} : tensor<3x2xf64>
   //CHECK: stda.return
 }
   
