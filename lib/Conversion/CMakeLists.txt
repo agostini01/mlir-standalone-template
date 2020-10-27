@@ -1,1 +1,2 @@
 add_subdirectory(STDAToAffine)
+add_subdirectory(STDAToLLVM)

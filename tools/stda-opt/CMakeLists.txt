@@ -3,21 +3,33 @@
 get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
 
+#message(PUBLIC "${dialect_libs}")
+#message(PUBLIC "${conversion_libs}")
+
 set(LIBS
-#  ${dialect_libs}
-#  ${conversion_libs}
+  #${dialect_libs}
+  #${conversion_libs}
 
   # Core
+  MLIRIR
   MLIRTransforms
   MLIROptLib
-  MLIRAffineToStandard
-  MLIRAffine
-
+  
   # Dialects
+  MLIRLLVMIR
+  MLIRAffine
+  MLIRStandard
+  MLIRSCF
   MLIRSTDA
   
   # Conversion
+  MLIRAffineToStandard
+  MLIRSCFToStandard
+  MLIRStandardToLLVM
+  MLIRLinalgToLLVM
+
   MLIRSTDAToAffine
+  MLIRSTDAToLLVM
 
 )
 

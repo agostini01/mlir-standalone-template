@@ -46,6 +46,7 @@ int main(int argc, char **argv) {
 
   // Conversion passes
   mlir::stda::registerSTDAToAffinePass();
+  mlir::stda::registerSTDAToLLVMPass();
 
   registry.insert<mlir::StandardOpsDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively

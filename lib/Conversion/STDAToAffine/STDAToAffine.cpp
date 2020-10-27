@@ -56,9 +56,9 @@ static Value insertAllocAndDealloc(MemRefType type, Location loc,
 /// induction variables for the iteration. It returns a value to store at the
 /// current index of the iteration.
 using LoopIterationFn = function_ref<Value(
-    OpBuilder &rewriter, ValueRange memRefOperands, ValueRange loopIvs)>;
+    OpBuilder &builder, ValueRange memRefOperands, ValueRange loopIvs)>;
 
-static void lowerOpToLoops(Operation *op, ValueRange operands,
+static void lowerOpToLoops(Operation *op, ArrayRef<Value> operands,
                            PatternRewriter &rewriter,
                            LoopIterationFn processIteration) {
   auto tensorType = (*op->result_type_begin()).cast<TensorType>();

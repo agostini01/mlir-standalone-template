@@ -32,6 +32,7 @@ std::unique_ptr<mlir::Pass> createShapeInferencePass();
 // Lowerings
 //===----------------------------------------------------------------------===//
 std::unique_ptr<mlir::Pass> createSTDAToAffinePass();
+std::unique_ptr<mlir::Pass> createSTDAToLLVMPass();
 
 //===----------------------------------------------------------------------===//
 // Register passes
@@ -49,6 +50,14 @@ inline void registerSTDAToAffinePass() {
                        "Implements stda dialect lowering to affine dialect",
                        []() -> std::unique_ptr<::mlir::Pass> {
                          return mlir::stda::createSTDAToAffinePass();
+                       });
+}
+
+inline void registerSTDAToLLVMPass() {
+  ::mlir::registerPass("lower-stda-to-llvm",
+                       "Implements stda dialect lowering to llvm dialect",
+                       []() -> std::unique_ptr<::mlir::Pass> {
+                         return mlir::stda::createSTDAToLLVMPass();
                        });
 }
 
