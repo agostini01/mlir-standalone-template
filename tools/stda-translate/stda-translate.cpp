@@ -18,9 +18,10 @@
 #include "Standalone/Dialect/Standalone/Dialect.h"
 
 int main(int argc, char **argv) {
-  mlir::registerAllTranslations();
+  //mlir::registerAllTranslations();
 
-  // TODO: Register translation s here
+  // Register translations here
+  mlir::registerToLLVMIRTranslation();
 
   return failed(
       mlir::mlirTranslateMain(argc, argv, "MLIR Translation Testing Tool"));
