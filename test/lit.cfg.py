@@ -56,7 +56,8 @@ tool_dirs = [config.stda_tools_dir, config.llvm_tools_dir]
 tools = [
     'stda-opt',
     'stda-translate',
-    'stda-compiler'
+    'stda-compiler',
+    #'mlir-runner'
 ]
 
 llvm_config.add_tool_substitutions(tools, tool_dirs)

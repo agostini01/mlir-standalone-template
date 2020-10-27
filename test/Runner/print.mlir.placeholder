@@ -1,0 +1,12 @@
+// RUN: stda-opt %s --lower-stda-to-affine  --lower-stda-to-llvm | \
+// RUN: mlir-runner -e main -entry-point-result=void | \
+// RUN: FileCheck %s
+
+func @main() {
+  %0 = stda.constant dense<[[1.000000e+00, 2.000000e+00, 3.000000e+00], [4.000000e+00, 5.000000e+00, 6.000000e+00]]> : tensor<2x3xf64>
+  stda.print %0 : tensor<2x3xf64>
+  stda.return
+
+  //CHECK: 1.000000 2.000000 3.000000 
+  //CHECK: 4.000000 5.000000 6.000000 
+}

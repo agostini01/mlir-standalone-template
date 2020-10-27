@@ -10,6 +10,7 @@ set(STANDALONE_TEST_DEPENDS
         stda-opt
         stda-translate
         stda-compiler
+        #mlir-runner
         )
 
 add_lit_testsuite(check-stda "Running the stda-opt regression tests"
