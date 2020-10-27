@@ -1,5 +1,6 @@
 # RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize | FileCheck %s --check-prefix=PARTIAL
 # RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize --cse | FileCheck %s --check-prefix=FULL
+# RUN: stda-compiler %s -emit=mlir 2>&1 | stda-opt --inline --shape-inference --canonicalize --cse --lower-stda-to-affine --affine-loop-fusion --memref-dataflow-opt | FileCheck %s --check-prefix=FULL2
 # User defined generic function that operates on unknown shaped arguments
 def multiply_transpose(a, b) {
 # CHECK-NOT: func @multiply_transpose
@@ -27,4 +28,11 @@ def main() {
 # FULL-NEXT: %{{.*}} = stda.mul %{{.*}}, %{{.*}} : tensor<3x2xf64>
 # FULL-NEXT: stda.print %{{.*}} : tensor<3x2xf64>
 # FULL-NEXT: stda.return
+
+# FULL2:        affine.for %{{.*}} = 0 to 3
+# FULL2-NEXT:      affine.for %{{.*}} = 0 to 2
+# FULL2-NEXT:        %{{.*}} = affine.load %{{.*}}[%{{.*}}, %{{.*}}] : memref<2x3xf64>
+# FULL2-NEXT:        %{{.*}} = mulf %{{.*}}, %{{.*}} : f64
+# FULL2-NEXT:        affine.store %{{.*}}, %{{.*}}[%{{.*}}, %{{.*}}] : memref<3x2xf64>
+
 }
