@@ -3,12 +3,15 @@
 Original author: https://github.com/jmgorius/mlir-stda-template
 LLVM Mirror: https://github.com/llvm/llvm-project/tree/master/mlir/examples/stda
 
-This repository contains a template for an out-of-tree [MLIR](https://mlir.llvm.org/) dialect as well as a
-stda `opt`-like tool to operate on that dialect.
+This repository contains a template for an out-of-tree
+[MLIR](https://mlir.llvm.org/) dialect as well as a stda `opt`-like tool to
+operate on that dialect.
 
 ## How to build
 
-This setup assumes that you have built LLVM and MLIR in `$BUILD_DIR` and installed them to `$PREFIX`. To build and launch the tests, run
+This setup assumes that you have built LLVM and MLIR in `$BUILD_DIR` and
+installed them to `$PREFIX`. To build and launch the tests, run:
+
 ```sh
 mkdir build && cd build
 cmake -G Ninja .. \
@@ -36,7 +39,10 @@ cmake --build . --target mlir-doc
 
 ### Building LLVM with Helper Script
 
-LLVM can be build with the helper `build_tools/build_mlir.sh`
+LLVM can be build with the helper `build_tools/build_mlir.sh`.
+The current version of the project was tested with `llvm-project` commit:
+`92bca1284308452b8eb549e9382873645320cf19`.
+Make sure you have the correct commit checked-out.
 
 ```bash
 # To configure and build
